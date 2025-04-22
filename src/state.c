@@ -23,22 +23,96 @@ static void update_head(game_state_t* state, unsigned int snum);
 
 /* Tarea 1 */
 game_state_t* create_default_state() {
-  // TODO: Implementar esta funcion.
-  return NULL;
+
+  
+  game_state_t* state = malloc(sizeof(game_state_t));
+  if (state == NULL) {   
+    return NULL;
+  }
+
+  
+  const unsigned int ROWS = 18;
+  const unsigned int COLS = 20;
+  state->num_rows = ROWS;
+
+  //tablero
+  const char* template_board[18] = {
+    "####################",
+    "#                  #",
+    "# d>D    *         #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "####################"
+  };
+
+  
+  state->board = malloc(sizeof(char*) * ROWS);
+  if (state->board == NULL) {   
+    free(state);
+    return NULL;
+  }
+
+  for (unsigned int r = 0; r < ROWS; ++r) {
+    state->board[r] = strdup(template_board[r]);   
+  }
+
+  
+  state->num_snakes = 1;
+  state->snakes = malloc(sizeof(snake_t));
+  if (state->snakes == NULL) {  
+    
+    for (unsigned int r = 0; r < ROWS; ++r) free(state->board[r]);
+    free(state->board);
+    free(state);
+    return NULL;
+  }
+
+  
+  state->snakes[0].tail_row = 2;
+  state->snakes[0].tail_col = 2;
+  state->snakes[0].head_row = 2;
+  state->snakes[0].head_col = 4;
+  state->snakes[0].live     = true;
+
+  return state;
 }
+
 
 
 /* Tarea 2 */
 void free_state(game_state_t* state) {
-  // TODO: Implementar esta funcion.
-  return;
+  if (state == NULL) return;
+
+  
+  for (unsigned int r = 0; r < state->num_rows; ++r) {
+    free(state->board[r]);
+  }
+  free(state->board);   
+  free(state->snakes);  
+  free(state);          
 }
 
 
 /* Tarea 3 */
 void print_board(game_state_t* state, FILE* fp) {
-  // TODO: Implementar esta funcion.
-  return;
+  if (state == NULL || fp == NULL) return;
+
+  for (unsigned int r = 0; r < state->num_rows; ++r) {
+    fputs(state->board[r], fp);
+    fputc('\n', fp);          
+  }
 }
 
 
