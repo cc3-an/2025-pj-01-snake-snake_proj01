@@ -30,8 +30,8 @@ int main(int argc, char* argv[]) {
   /* Tarea 7 */
 
   // Leer el tablero de un archivo, o crear un tablero por defecto.
-  char* in_filename  = NULL;
-  char* out_filename = NULL;
+  
+ 
 
   for (int i = 1; i + 1 < argc; ++i) {
       if (strcmp(argv[i], "-i") == 0) {
