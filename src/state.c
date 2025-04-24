@@ -1,3 +1,5 @@
+#define _GNU_SOURCE           
+#include <sys/types.h>        
 #include "state.h"
 #include <sys/types.h>
 #include <stdbool.h>
@@ -35,7 +37,7 @@ game_state_t* create_default_state() {
 
   
   const unsigned int ROWS = 18;
-  const unsigned int COLS = 20;
+
   state->num_rows = ROWS;
 
   //tablero
